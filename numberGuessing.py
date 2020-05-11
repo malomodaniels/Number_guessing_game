@@ -1,40 +1,43 @@
+import random as r
 
-# EXERCEISE - NUMBER GUESSING GAME(with loop)
+# welcome screen
+user_name = input('Type your name : ').title()
+print(f'Hello {user_name}.')
 
-#---------------soluation------------------
-import random
+user_said = input(f'{user_name} do you want to play Number Guessing game (Y/N) : ').lower()
 
-winning_number = random.randint(1,100)
-print('You have 10 guess') #telling user that he have 5 guess
-guessed_number = int(input('Guess the number between 1 and 100 : '))
-guess = 1
-left_guess = 10
-game_over = False
+while True:
 
-#infinite loop
+    if ('y' not in user_said) and ('n' not in user_said) and (user_said != True):
+        user_said = input('Invalid keyword\nType again : ').lower()
 
-while not game_over:   # gameover is not true
+    elif 'y' in user_said:
+        winning_number = r.randint(1,100)
+        user_guessed = int(input('\nYou have 6 guesses.\nGuess any number between 1 and 100\nGuess the number : '))
+        turn = 1
 
-    if winning_number == guessed_number:
-        print(f'Congrats you guessed the number in {guess} time')
-        game_over = True
+        while True:
+        
+            if winning_number == user_guessed:
+                print(f'Congrats you guessed the number in {turn} times.')
+                break
 
-    else:
-        if guess == 10:
-            print('Sorry, you can\'t guess the number and you used 10 guesses')
-            print(f'The number is {winning_number}')
-            game_over = True
-
-        else:
-            if guessed_number > winning_number:
-                print('"Too high"')
+            elif turn == 6:
+                print(f'Sorry You can\'t guess the number. The number is {winning_number}.')
+                break
 
             else:
-                print('"Too low"')
-            guess +=1
-            print(f'{left_guess - (guess-1)} guess left')  # (guess-1) because guess is already 1 
-            guessed_number = int(input(' \nGuess again : '))
+                if winning_number > user_guessed:
+                    print('Too Low')
+                else:
+                    print('Too High')
 
+                print(f'You have {6-turn} guesses left.')
+                turn += 1
+                user_guessed = int(input('Guess again : '))
 
+        user_said = input(f'\n{user_name} do you want to play more (Y/N) : ')
 
-
+    else:
+        print(f'\nOk Bye {user_name}. See You soon.')
+        break
